@@ -2,586 +2,123 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Alias Number</title>
+    <title>Drag'nDrop</title>
     <script>document.write('<base href="' + document.location + '" />');</script>
-    <link rel="stylesheet" href="css/font-awesome-4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/lavish-bootstrap.css"> <!--modify with logo img/second_number_black_1600.png-->
-    <link rel="stylesheet" href="css/vnumber.css">
-    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/nectarine.css">
 </head>
 
-<body ng-app="vNumber" ng-cloak>  <!--ng-cloak prevent html template {{}} to be briefly dysplayed-->
+<body ng-app="clement">
+<script type="text/ng-template" id="error.html">
+    <h3>ERROR</h3>
+</script>
 
-    <nav class="navbar navbar-default" role="navigation" ng-controller="navCtrl">
-        <a class="navbar-brand navbar-left logo"><img src="img/second_number_black_1600.png" alt="VNumber" width="30" height="30"></a>
-        <div class="container-fluid">
-            <div class="navbar-header" ng-show="!isConnected()">
-                <ul class="nav navbar-nav">
-                    <li class="navbar-brand">
-                        {{'VNUMBER_ADMIN' | translate}}
-                    </li>
-                </ul>
-            </div>
-            <div class="navbar-header" ng-show="isConnected()">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#logout" >
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a class="navbar-brand" href="#/home">{{'VNUMBER_ADMIN' | translate}}</a>
-                    </li>
-                </ul>
+<!-- script de la page de jeu-->
+<script type="text/ng-template" id="clement.html">
+    <div ng-controller="MainCtrl">
+        <div class="cadreCentre">
+            <div class="title">Jeu de mots Clément</div>
+            <div class="pull-right" ng-if="end()" >
+                <button class="btn btn-primary" ng-click="initialisation()">Rejouer</button>
             </div>
         </div>
-
-        <div class="collapse navbar-collapse" id="logout" >
-            <ul class="nav navbar-nav navbar-right navbar-btn" ng-show="isConnected()">
-                <li class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="toggleLanguage()">{{'BTN_LANGUAGE_LABEL' | translate}}</a></li>
-                        <li class="nav-divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/#/logout">{{'LOGOUT' | translate}}</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="row">
+            <div class="cadre">
+                <div ng-repeat="c in columns" class="column"
+                     drag="c" dragStyle="columnDrag"
+                     drop="c" dropStyle="columnDrop">
+                    {{c.title}}
+                </div>
+            </div>
         </div>
-    </nav>
+        <div class="cadre">
+            <div ng-repeat="d in columns2" class="column2" drag="d" dragStyle="columnDrag" drop="d"
+                 dropStyle="columnDrop">
+                <div ng-if="good(d, $index)" class="columnok">
+                    {{d.title}}
+                </div>
+                <div ng-if="!good(d, $index)">
+                    {{d.title}}
+                </div>
+            </div>
+            <div class="row">
+                <div ng-if="end()" class="result">
+                    Gagné
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 
-    <div class="container">
+<!-- script de la page d'admin-->
+<script type="text/ng-template" id="manage.html">
+    <h2>Liste des phrases</h2>
+    <div ng-controller="manageCtrl">
 
-        <!-- Modal -->
-
-        <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="error" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">{{ 'ERROR' | translate }}</h4>
-                    </div>
-                    <div class="modal-body">
-                        {{ 'AN_ERROR_HAS_OCCURRED' | translate }}
-                    </div>
+        <div ng-repeat="phrase in posts">
+            <div class="row">
+                <button class="btn btn-primary btn-sm glyphicon glyphicon-trash" data-ng-click="deletePhrase($index)"></button>
+                <div ng-repeat="c in phrase" class="phrase">
+                    {{c.title}}&nbsp;
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="error" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel1">{{ 'SUCCESS' | translate }}</h4>
-                    </div>
-                    <div class="modal-body">
-                        {{ 'THE_OPERATION_WAS_SUCCESSFUL' | translate }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <br>
+        <br>
+        <div class="row">
 
-        <script type="text/ng-template" id="error.html">
-            <div class="container text-center">
-                <h1>{{'ACCESS_FORBIDDEN' | translate}}</h1>
-                <i class="fa fa-ban fa-10x"></i>
-            </div>
-        </script>
+            <h2>Ajouter une nouvelle phrase</h2>
 
-        <script type="text/ng-template" id="login.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form name="login_form" ng-submit="login()">
-                                    <fieldset>
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-addon fa fa-envelope-o  fa-w"></span>
-                                            <input class="form-control" title="" placeholder="{{'EMAIL' | translate}}" id="email" type="text" autofocus required ng-required="true" ng-model="email" autocomplete="off">  <!-- autocomplete="off" to prevent password autocomplete -->
-                                        </div>
-                                        <p></p>
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-addon fa fa-key fa-w"></span>
-                                            <input class="form-control" title="" placeholder="{{'PASSWORD' | translate}}" name="password" type="password" value="" required  ng-required="true" ng-model="password">
-                                        </div>
-                                        <p></p>
-                                        <button type="submit" class="btn btn-sm btn-success btn-block" ng-disabled="login_form.$pristine || login_form.$invalid">{{'LOGIN' | translate}}</button>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="home.html">
-            <div class="container">
-                <div class="spacer"></div>
-                <div class="row">
-                    <div class="col-md-7 col-md-offset-2">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="spacer text-center">
-                                    <button  class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_BOOK' | translate}}" title="" go-click="/poolnumbers" ng-disabled="!voiceServiceExist()"><i class="fa fa-mobile fa-4x"></i></button>
-                                    <span class="hSpacer"></span>
-                                    <button  class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_LIST_BOOK' | translate}}" title="" go-click="/allvnumbers" ng-disabled="!voiceServiceExist()"><i class="fa fa-th-list fa-4x"></i></button>
-                                    <span class="hSpacer"></span>
-                                    <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_EMPLOYEE' | translate}}" title="" go-click="/newuser" ng-disabled="!voiceServiceExist()" ><i class="fa fa-user fa-4x"></i></button>
-                                    <span class="hSpacer"></span>
-                                    <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_LIST_EMPLOYEE' | translate}}" title="" go-click="/allusers" ng-disabled="!voiceServiceExist()"><i class="fa fa-users fa-4x"></i></button>
-                                    <span class="hSpacer"></span>
-                                    <button class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_VOICE_SERVICE' | translate}}" title="" go-click="/voiceservice" ng-disabled="noToken()"><i class="fa fa-microphone fa-4x"></i></button>
-                                    <span class="hSpacer"></span>
-                                    <button  class="btn btn-default removeVS" data-toggle="tooltip" data-placement="top" data-original-title="{{'BTN_TOOLTIP_REMOVE' | translate}}" title="" data-ng-click="deleteVoiceServices()" ng-disabled="!voiceServiceExist()"><i class="fa fa-trash fa-4x"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="allvnumbers.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <fieldset>
-                                    <table class="table table-striped table-hover spacer">
-                                        <thead>
-                                            <tr>
-                                                <th class="colVoiceServiceId">
-                                                    <a ng-click="sortvNumber('serviceId')">{{'SERVICE_ID' | translate}}</a>
-                                                    <span class="hSpacer" ng-class="sortIconCssNumber('serviceId')"></span>
-                                                </th>
-                                                <th class="colvNumber">
-                                                    <a ng-click="sortvNumber('number')">{{'VNUMBER' | translate}}</a>
-                                                    <span class="hSpacer" ng-class="sortIconCssNumber('number')"></span>
-                                                </th>
-                                                <th class="colCapacities">
-                                                    <a ng-click="sortvNumber('capacities')">{{'CAPACITIES' | translate}}</a>
-                                                    <span class="hSpacer" ng-class="sortIconCssText('capacities')"></span>
-                                                </th>
-                                                <th class="colInvoicingPlan">
-                                                    <a ng-click="sortvNumber('invoicingPlan')">{{'INVOICING_PLAN' | translate}}</a>
-                                                    <span class="hSpacer" ng-class="sortIconCssNumber('invoicingPlan')"></span>
-                                                </th>
-                                                <th class="colExpirationDate">
-                                                    <a ng-click="sortvNumber('expirationDate')">{{'EXPIRATION_DATE' | translate}}</a>
-                                                    <span class="hSpacer" ng-class="sortIconCssNumber('expirationDate')"></span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr  ng-repeat="vNumber in vNumbers | orderBy: sortField:sortDesc" class="clickable">
-                                                <td>{{vNumber.serviceId}}</td>
-                                                <td>{{vNumber.number}}</td>
-                                                <td>{{vNumber.capacities}}</td>
-                                                <td>{{vNumber.invoicingPlan}}</td>
-                                                <td>{{vNumber.expirationDate | date:'dd/MM/yyyy HH:mm'}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </fieldset>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row ">
-                                    <button go-click="/home" class="btn btn-lg btn-success pull-right">{{'HOME' | translate}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="allusers.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <fieldset>
-                                    <div class="spacer input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-search"></i>
-                                        </div>
-                                        <input type="text" ng-model="search" class="form-control" placeholder="{{'SEARCH_USER' | translate}}"/>
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-default" ng-click="delSearch()"><i class="fa fa-remove"></i></button>
-                                        </div>
-                                    </div>
-                                    <table class="table table-striped table-hover spacer">
-                                        <thead>
-                                        <tr>
-                                            <th class="colServiceId">
-                                                <a ng-click="sortUser('service_id')">{{'SERVICE_ID' | translate}}</a>
-                                                <span class="hSpacer" ng-class="sortIconCssNumber('service_id')"></span>
-                                            </th>
-                                            <th class="colLastname">
-                                                <a ng-click="sortUser('lastname')">{{'LASTNAME' | translate}}</a>
-                                                <span class="hSpacer" ng-class="sortIconCssText('lastname')"></span>
-                                            </th>
-                                            <th class="colPrivateNumber">
-                                                <a ng-click="sortUser('privateNumber')">{{'PRIVATE_NUMBER' | translate}}</a>
-                                                <span class="hSpacer" ng-class="sortIconCssNumber('privateNumber')"></span>
-                                            </th>
-                                            <th class="colVirtual_phone_number">
-                                                <a ng-click="sortUser('virtual_phone_number')">{{'VNUMBER' | translate}}</a>
-                                                <span class="hSpacer" ng-class="sortIconCssNumber('virtual_phone_number')"></span>
-                                            </th>
-                                            <th class="colContext_expiration_date">
-                                                <a ng-click="sortUser('context_expiration_date')">{{'EXPIRATION_DATE' | translate}}</a>
-                                                <span class="hSpacer" ng-class="sortIconCssNumber('context_expiration_date')"></span>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr  ng-repeat="user in usersFiltres = (users | filter:search) | orderBy: sortField:sortDesc" class="clickable">
-                                            <td>{{user.service_id}}</td>
-                                            <td ng-bind-html = "user.lastname | highlightSearch:search"></td>
-                                            <td ng-bind-html = "user.privateNumber | highlightSearch:search"></td>
-                                            <td ng-bind-html = "user.virtual_phone_number | highlightSearch:search"></td>
-                                            <td>{{user.context_expiration_date | date:'dd/MM/yyyy HH:mm'}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </fieldset>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row ">
-                                    <button go-click="/home" class="btn btn-lg btn-success pull-right">{{'HOME' | translate}}</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="poolnumbers.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-3">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form name="vNumber_form" ng-submit="saveNumbers()">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label>{{'NUMBER_TYPE' | translate}} : </label>
-                                            <label class="radio-inline hSpacer">
-                                                <input type="radio" ng-model="vNumType" value="mobile">{{'MOBILE' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" ng-model="vNumType" value="fixed" ng-disabled="true">{{'FIXED' | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'BOOKING_PREFIX' | translate}} :</label>
-                                            <input  class="form-control span3" type="text" title= "" ng-model="vNumPref" placeholder="{{'BOOKING_PREFIX_PLACEHOLDER' | translate}}" ng-required="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'SERVICES' | translate}} :</label>
-                                            <div class="checkbox hSpacer">
-                                                <label>
-                                                    <input type="checkbox" ng-model="vNumSms" ng-true-value="SMS" ng-false-value="" id="vNumSms">SMS
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'BOOKING_DURATION' | translate}} :</label>
-                                            <input  class="form-control span3" type="number" title= "" ng-model="vNumDuration" placeholder="{{'BOOKING_DURATION_PLACEHOLDER' | translate}}" pattern="^(?:1,?440|1,?4[0-3]\d|1,?[0-3]\d{2}|[1-9]\d{1,2}|[1-9])$" ng-required="true" maxlength="4">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'POOL_SIZE' | translate}} :</label>
-                                            <input class="form-control span3" type="number" title="" ng-model="vNumPoolSize" placeholder="{{'POOL_SIZE_PLACEHOLDER' | translate}}" pattern="^([1-9]|10)$" ng-required="true" maxlength="2">
-                                        </div>
-                                        <div class="spacer text-center">
-                                            <button type="submit" class="btn btn-lg btn-success " ng-disabled="!voiceServiceExist() || vNumber_form.$pristine || vNumber_form.$invalid">{{'SAVE' | translate}}</button>
-                                            <span class="hSpacer"></span>
-                                            <button go-click="/home" class="btn btn-lg btn-success ">{{'CANCEL' | translate}}</button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="newuser.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-3">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form name="user_form" ng-submit="saveUser()">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label>{{'LASTNAME' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" ng-model="lastname" placeholder="{{'LASTNAME' | translate}}" required autofocus>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'FIRSTNAME' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" ng-model="firstname" placeholder="{{'FIRSTNAME' | translate}}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <p><label>{{'GENDER' | translate}} :</label></p>
-                                            <label class="radio-inline hSpacer">
-                                                <input type="radio" ng-model="gender" value="male">{{'GENDER_MALE' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" ng-model="gender" value="female">{{'GENDER_FEMALE' | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'DATE_OF_BIRTH' | translate}} :</label>
-                                            <input class="form-control" title="" type="date" ng-model="birthDate" placeholder="{{'DATE_OF_BIRTH' | translate}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <p><label>{{'CONTRACT' | translate}} :</label></p>
-                                            <label class="radio-inline hSpacerL">
-                                                <input type="radio" ng-model="contract" value="apprentice">{{'CONTRACT_APPRENTICE' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" ng-model="contract" value="trainee">{{'CONTRACT_TRAINEE' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" ng-model="contract" value="fixed-term">{{'CONTRACT_FIXED_TERM' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" ng-model="contract" value="interim">{{'CONTRACT_INTERIM' | translate}}
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="contract" ng-model="contract" value="full-time">{{'CONTRACT_FULL_TIME' | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'VALIDITY_DURATION' | translate}} :</label>
-                                            <input class="form-control" title="" type="number" placeholder="{{'VALIDITY_DURATION_PLACEHOLDER' | translate}}" pattern="^(?:1,?440|1,?4[0-3]\d|1,?[0-3]\d{2}|[1-9]\d{1,2}|[1-9])$" required ng-model="duration">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'PRIVATE_NUMBER' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" placeholder="{{'PRIVATE_NUMBER_PLACEHOLDER' | translate}}" pattern="^\+\d{9,20}$" required ng-model="privateNumber">
-                                        </div>
-                                        <div class="form-group">
-                                            <p><label>{{'SERVICES' | translate}} :</label></p>
-                                            <label class="checkbox-inline hSpacer">
-                                                <input type="checkbox" ng-model="SMS_IN" id="SMS_IN">SMS
-                                            </label>
-                                            <label  class="checkbox-inline">
-                                                <input type="checkbox" ng-model="CALL_IN" id="CALL_IN">CALL
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'PIN' | translate}} :</label>
-                                            <input class="form-control" type="text" title="" pattern="[0-9]{4}" maxlength="4" placeholder="{{'PIN_PLACEHOLDER' | translate}}" required ng-model="pin">
-                                        </div>
-                                        <div class="spacer text-center">
-                                            <button type="submit" class="btn btn-lg btn-success" ng-disabled="!voiceServiceExist() || user_form.$pristine || user_form.$invalid">{{'SAVE' | translate}}</button>
-                                            <span class="hSpacer"></span>
-                                            <button go-click="/home" class="btn btn-lg btn-success">{{'CANCEL' | translate}}</button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="voiceservice.html">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-3">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form name="messages_form" ng-submit="saveVoiceService(voiceServiceContent)">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label>{{'id' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" ng-model="voiceServiceContent.id" placeholder="..." ng-disabled="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'type' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" ng-model="voiceServiceContent.type" placeholder="..." ng-disabled="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>{{'name' | translate}} :</label>
-                                            <input class="form-control" title="" type="text" maxlength="50" ng-model="voiceServiceContent.name" placeholder="..." ng-disabled="voiceServiceContent.id" required autofocus>
-                                        </div>
-                                        <fieldset >
-                                            <legend>Welcome</legend>
-                                            <div class="form-group">
-                                                <p><label>{{'LANGUAGE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.language" value="en" ng-click="voiceServiceContent.customMessages.welcome.speak.voice='Elizabeth'">EN
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.language" value="fr" ng-click="voiceServiceContent.customMessages.welcome.speak.voice='Agnes'">FR
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.language" value="es" ng-click="voiceServiceContent.customMessages.welcome.speak.voice='Marta'">ES
-                                                </label>
-                                            </div>
-                                         <div class="form-group">
-                                                <p><label>{{'VOICE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Agnes">Agnès
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Loic">Loic
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Philippe">Philippe
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Elizabeth">Elizabeth
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Bibi">Bibi
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.welcome.speak.language!='es'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.welcome.speak.voice" value="Marta">Marta
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>{{'MESSAGE' | translate}} :</label>
-                                                <input class="form-control" title="" type="text" maxlength="5000" ng-model="voiceServiceContent.customMessages.welcome.speak.message" placeholder="..." required>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset >
-                                            <legend>Wait</legend>
-                                            <div class="form-group">
-                                                <p><label>{{'LANGUAGE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.language" value="en" ng-click="voiceServiceContent.customMessages.wait.speak.voice='Elizabeth'">EN
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.language" value="fr" ng-click="voiceServiceContent.customMessages.wait.speak.voice='Agnes'">FR
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.language" value="es" ng-click="voiceServiceContent.customMessages.wait.speak.voice='Marta'">ES
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <p><label>{{'VOICE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Agnes">Agnès
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Loic">Loic
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Philippe">Philippe
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Elizabeth">Elizabeth
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Bibi">Bibi
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.wait.speak.language!='es'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.wait.speak.voice" value="Marta">Marta
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>{{'MESSAGE' | translate}} :</label>
-                                                <input class="form-control" title="" type="text" maxlength="5000" ng-model="voiceServiceContent.customMessages.wait.speak.message" placeholder="..." required>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset >
-                                            <legend>Warning</legend>
-                                            <div class="form-group">
-                                                <p><label>{{'LANGUAGE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.language" value="en" ng-click="voiceServiceContent.customMessages.warning.speak.voice='Elizabeth'">EN
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.language" value="fr" ng-click="voiceServiceContent.customMessages.warning.speak.voice='Agnes'">FR
-                                                </label>
-                                                <label class="radio-inline hSpacerL">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.language" value="es" ng-click="voiceServiceContent.customMessages.warning.speak.voice='Marta'">ES
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <p><label>{{'VOICE' | translate}} :</label></p>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Agnes">Agnès
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Loic">Loic
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='fr'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Philippe">Philippe
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Elizabeth">Elizabeth
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='en'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Bibi">Bibi
-                                                </label>
-                                                <label class="radio-inline hSpacerL" ng-hide="voiceServiceContent.customMessages.warning.speak.language!='es'">
-                                                    <input type="radio" ng-model="voiceServiceContent.customMessages.warning.speak.voice" value="Marta">Marta
-                                                </label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>{{'MESSAGE' | translate}} :</label>
-                                                <input class="form-control" title="" type="text" maxlength="5000" ng-model="voiceServiceContent.customMessages.warning.speak.message" placeholder="..." required>
-                                            </div>
-
-                                        </fieldset>
-                                        <div class="spacer text-center">
-                                            <button type="submit" class="btn  btn-small btn-success" ng-disabled="messages_form.$pristine || messages_form.$invalid">{{'SAVE' | translate}}</button>
-                                            <span class="hSpacer"></span>
-                                            <button go-click="/home" class="btn  btn-small btn-success">{{'CANCEL' | translate}}</button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="logout.html">
             <div>
-                {{'BYE' | translate}}
+            <form name="form" role="form">
+                <div ng-repeat="d in newPhrase" class="phrase">
+                    <input class="form-control" ng-model="d.title" type="text">
+                </div>
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary" ng-click="addPhrase()">Enregistrer</button>
+                </div>
+            </form>
             </div>
-        </script>
-
-        <!-- route-loading-indicator is a directive for displaying loading...-->
-        <route-loading-indicator></route-loading-indicator>
-        <div ng-if="!isRouteLoading" class="col-lg-12" ng-view></div>
-
+        </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="vendors/jquery/1.11.1/jquery-1.11.1.min.js"></script>
-    <script src="vendors/bootstrap/3.3.1/bootstrap.min.js"></script>
-    <script src="vendors/angularjs/1.2.27/angular.min.js"></script>
-    <script src="vendors/angularjs/1.2.27/angular-route.min.js"></script>
-    <script src="vendors/angularjs/1.2.27/angular-sanitize.min.js"></script>
-    <script src="vendors/uibootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+</script>
 
-    <!--multilangage, pascalprecht-->
-    <script src="vendors/angularjs/translate/2.5/angular-translate.min.js"></script>
 
-    <!--local imports-->
-    <script src="js/app.js"></script>
-    <script src="js/controllers/mainCtrl.js"></script>
+<div ng-view>
+    Loading...
+</div>
+
+<!--chargement des scripts-->
+<script src="vendors/jquery-1.11.0.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+<!--imports locaux du projet-->
+<script src="js/app.js" async></script>
+<script src="js/directives/directive.js" async></script>
+<script src="js/controllers/mainCtrl.js" async></script>
+<script src="js/modernizr.js"></script>
+<script src="js/functions.js" type="text/javascript"></script>
+<script type="text/javascript">
+//TODO : fonction ok mais la page n'existe pas au lancement
+
+
+//if browser doesn't support draggable attribute
+    if(window.FileReader && Modernizr.draganddrop)
+    {
+        alert("Your browser supports drag and drop!!");
+        var list2 = document.getElementsByClassName("column");
+        var list3 = document.getElementsByClassName("column2");
+        changeDiv2A('column2');
+        changeDiv2A('column');
+    }
+    else
+    {
+        alert("We're operating changes in the html");
+    }
+</script>
+
 
 </body>
 </html>

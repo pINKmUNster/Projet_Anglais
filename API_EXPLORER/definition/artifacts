@@ -1,0 +1,390 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/artifacts/{apiKey}/versions/{version}/{artifactName}",
+            "operations": [
+                {
+                    "method": "POST",
+                    "summary": "Post new artifact (infos + file)",
+                    "notes": "",
+                    "nickname": "PutNewArtifact",
+                    "type": "Artifact",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "apiKey",
+                            "description": "Application Api Key",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "version",
+                            "description": "Artifact Version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "artifactName",
+                            "description": "Artifact Name (must be unique for specific version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "filename",
+                            "description": "force filename for artefact, surcharge default name",
+                            "required": false,
+                            "type": "string",
+                            "paramType": "query",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "data",
+                            "description": "Artifact file",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "file"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "Error occured",
+                            "responseModel": "Error"
+                        },
+                        {
+                            "code": 200,
+                            "message": "Artifact successfully addded",
+                            "type": "Artifact"
+                        }
+                    ]
+                },
+                {
+                    "method": "GET",
+                    "summary": "Get artifact infos",
+                    "notes": "",
+                    "nickname": "GetArtifactInfo",
+                    "type": "Artifact",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "apiKey",
+                            "description": "Application Api Key",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "version",
+                            "description": "Artifact Version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "artifactName",
+                            "description": "Artifact Name (must be unique for specific version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        },
+                        {
+                            "code": 200,
+                            "message": "artifact object",
+                            "type": "Artifact"
+                        }
+
+                    ]
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update artifact infos",
+                    "notes": "",
+                    "nickname": "UpdateArtifactInfo",
+                    "type": "ArtifactUpdate",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "apiKey",
+                            "description": "Application Api Key",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "version",
+                            "description": "Artifact Version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "artifactName",
+                            "description": "Artifact Name (must be unique for specific version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "body",
+                            "description": "Artifact object that needs to be updated",
+                            "required": true,
+                            "type": "ArtifactUpdate",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        },
+                        {
+                            "code": 200,
+                            "message": "artifact updated",
+                            "type": "Artifact"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete artifac",
+                    "notes": "",
+                    "nickname": "DeleteArtifact",
+                    "type": "array",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "apiKey",
+                            "description": "Application Api Key",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "version",
+                            "description": "Artifact Version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "artifactName",
+                            "description": "Artifact Name (must be unique for specific version",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        },
+                        {
+                            "code": 200,
+                            "message": "Artifact deleted"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/artifacts/file/{artifactIdentifier}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get artifact File",
+                    "notes": "",
+                    "nickname": "GetArtifactFile",
+                    "authorizations": {},
+                    "produces": [
+                        "application/octet-stream"
+                    ],
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "name": "artifactIdentifier",
+                            "description": "Artifact Identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        },
+                        {
+                            "code": 200,
+                            "message": "Artifact file"
+                        }
+
+                    ]
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update artifact File",
+                    "notes": "",
+                    "nickname": "UpdateArtifactFile",
+                    "type": "array",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "artifactIdentifier",
+                            "description": "Artifact Identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "Artifact": {
+            "id": "Artifact",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "contentType": {
+                    "type": "string"
+                },
+                "uploadDate": {
+                    "type": "string"
+                },
+                "aliases": {
+                    "type": "string"
+                },
+                "md5": {
+                    "type": "string"
+                },
+                "chunkSize": {
+                    "type": "integer"
+                },
+                "length": {
+                    "type": "integer"
+                },
+                "metadata": {
+                    "filename": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "application": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array"
+                    }
+                }
+            }
+        },
+        "ArtifactUpdate": {
+            "id": "Artifact",
+            "properties": {
+                "contentType": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "ArtifactMetadata"
+                }
+            }
+        },
+        "ArtifactMetadata": {
+            "id": "ArtifactMetadata",
+            "properties": {
+                "filename": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "visibility": {
+                    "type": "string"
+                },
+                "isVisibleFromExternalUser": {
+                    "type": "boolean"
+                },
+                "tags": {
+                    "type": "array"
+                }
+            }
+        }
+}
+}

@@ -1,0 +1,825 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/applications2",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "get applications summaries available for authenticated user",
+                    "notes": "",
+                    "nickname": "GetApplication",
+                    "type": "array",
+                    "items": {
+                        "$ref": "ApplicationList"
+                    },
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create new application",
+                    "notes": "",
+                    "nickname": "UpdateApplication",
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "name": "body",
+                            "description": "Application object that needs to be added",
+                            "required": true,
+                            "type": "Application",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get application full detail.",
+                    "notes": "Be Careful, request may be take some time, only use it for administration",
+                    "nickname": "GetApplication",
+                    "type": "ApplicationDetail",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update application detail",
+                    "notes": "",
+                    "nickname": "GetApplication",
+                    "type": "Application",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "name": "body",
+                            "description": "Application object that needs to be updated",
+                            "required": true,
+                            "type": "ApplicationUpdate",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete application detail",
+                    "notes": "",
+                    "nickname": "DeleteApplication",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}/versions",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get application all versions",
+                    "notes": "",
+                    "nickname": "GetApplicationVersions",
+                    "type": "ApplicationVersion",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}/versions/{version}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get application specific version",
+                    "notes": "",
+                    "nickname": "GetApplicationVersion",
+                    "type": "ApplicationVersion",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "version",
+                            "description": "Version requested",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}/adminmembers/{userMail}",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "summary": "Add user in application admin member list",
+                    "notes": "",
+                    "nickname": "AddAdminMemberInApplication",
+                    "type": "ApplicationDetail",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete application detail",
+                    "notes": "",
+                    "nickname": "DeleteAdminMemberInApplication",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}/members/{userMail}",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "summary": "Add user in application  member list, (used only if application is private",
+                    "notes": "",
+                    "nickname": "AddMemberInApplication",
+                    "type": "ApplicationDetail",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete application detail",
+                    "notes": "",
+                    "nickname": "DeleteMemberInApplication",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/applications/{applicationIdentifier}/extmembers/{userMail}",
+            "operations": [
+                {
+                    "method": "PUT",
+                    "summary": "Add external user in application",
+                    "notes": "",
+                    "nickname": "AddExtMemberInApplication",
+                    "type": "ApplicationDetail",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete application detail",
+                    "notes": "",
+                    "nickname": "DeleteExtMemberInApplication",
+                    "parameters": [
+                        {
+                            "name": "applicationIdentifier",
+                            "description": "Application identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "name": "userMail",
+                            "description": "User Email",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "query",
+                            "name": "access_token",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 200,
+                            "message": "application message"
+
+                        },
+                        {
+                            "code": 500,
+                            "message": "error message"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ApplicationUpdate": {
+            "id": "Application",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayname": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string",
+                    "enum": [
+                        "IOS",
+                        "ANDROID",
+                        "WP"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Application": {
+            "id": "Application",
+            "required": [
+                "name",
+                "platform"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayname": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string",
+                    "enum": [
+                        "IOS",
+                        "ANDROID",
+                        "WP"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ApplicationList": {
+            "id": "ApplicationList",
+            "required": [
+                "_id",
+                "name",
+                "platform",
+                "is_public",
+                "apikey"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "displayname": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string",
+                    "enum": [
+                        "IOS",
+                        "ANDROID",
+                        "WP"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "apikey": {
+                    "type": "string",
+                    "description": "api key used to upload artifacts, only present if user is sysadmin or application admin member"
+                }
+            }
+        },
+        "ApplicationVersion": {
+            "id": "ApplicationVersion",
+            "required": [
+                "_id",
+                "versions"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "artifacts":{
+                    "type": "array",
+"items": {
+"$ref": "ArtifactSummary"
+}
+}
+            }
+        },
+        "ApplicationDetail": {
+            "id": "ApplicationDetail",
+            "required": [
+                "_id",
+                "name",
+                "platform",
+                "is_public",
+                "apikey",
+                "adminmembers",
+                "members",
+                "extmembers"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayname": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string",
+                    "enum": [
+                        "IOS",
+                        "ANDROID",
+                        "WP"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "integer"
+                },
+                "apikey": {
+                    "type": "string"
+                },
+                "adminmembers":{
+                    "type": "array",
+                        "items": {
+                            "$ref": "UserSummary"
+                        }
+                },
+                "members":{
+                    "type": "array",
+                    "items": {
+                        "$ref": "UserSummary"
+                    }
+                },
+                "extmembers":{
+                    "type": "array",
+                    "items": {
+                        "$ref": "ExtUserSummary"
+                    }
+                },
+                "artifacts":{
+                    "type": "array",
+                    "items": {
+                        "$ref": "ArtifactSummary"
+                    }
+                }
+            }
+        },
+        "UserSummary": {
+            "id": "UserSummary",
+            "required": [
+                "id",
+                "email"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "sysadmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ExtUserSummary": {
+            "id": "ExtUserSummary",
+            "required": [
+                "id",
+                "email"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "external": {
+                    "type": "boolean"
+                },
+                "internal_referee": {
+                    "type": "string"
+                }
+            }
+        },
+        "ArtifactMetadata": {
+            "id": "ArtifactMetadata",
+            "properties": {
+                "filename": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "visibility": {
+                    "type": "string"
+                },
+                "isVisibleFromExternalUser": {
+                    "type": "boolean"
+                },
+                "tags": {
+                    "type": "array"
+                }
+            }
+        },
+        "ArtifactSummary": {
+            "id": "ArtifactSummary",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "contentType": {
+                    "type": "string"
+                },
+                "uploadDate": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "$ref": "ArtifactMetadata"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "clement",
+  "version": "1.0.0",
+  "description": "jeu de mots",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.0.0",
+    "body-parser": "~1.0.0",
+    "swagger-node-express": "~2.0"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "author": "Sandrine Lafrogne",
+  "contributors": ["Thierry Balandier"],
+  "license": "MIT"
+}
+
+

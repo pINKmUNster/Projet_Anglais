@@ -1,0 +1,361 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/users/me",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "get information on the connected user",
+                    "notes": "Returns the attributes of the currently connected user.",
+                    "nickname": "GetUser",
+                    "type": "User",
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request. format : 'bearer access_token'",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/allusers",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "get list all the users",
+                    "notes": "whatever the kind of user, the list of all users will be returned.",
+                    "nickname": "GetAllUser",
+                    "type": "array",
+                    "items": {
+                        "$ref": "User"
+                    },
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/users",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "get list of users manageable by authenticated user",
+                    "notes": "If authenticated user is flagged as sysadmin, the list of all users will be returned. If the requester is only an orange internal user (ie.: user is internal to Orange but not sysadmin), the response will list all the external users that are managed by the authenticated user. Note : an external user has an internal_referee attribute that identifies the manager of the entry.",
+                    "nickname": "GetUser",
+                    "type": "array",
+                    "items": {
+                        "$ref": "User"
+                    },
+                    "authorizations": {},
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create new user",
+                    "notes": "If authenticated user is sysadmin, this will create a new user that can be sysadmin, internal user or external. If user is Orange internal, this operation will only be allowed for creation of external users. In this case, the created user is bounded to the authenticated user : he will be identified as the manager of the newly created entry. External users cannot create users.",
+                    "nickname": "CreateUser",
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "name": "body",
+                            "description": "User object that needs to be added",
+                            "required": true,
+                            "type": "UserAdded",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Validation failed"
+
+                        },
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/users/{userIdentifier}",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get user details",
+                    "notes": "Returns the data associated to a user. Not all information is returned.",
+                    "nickname": "GetUser",
+                    "type": "User",
+                    "parameters": [
+                        {
+                            "name": "userIdentifier",
+                            "description": "User identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        },
+                        {
+                            "code": 204,
+                            "message": "No user with this id."
+                        }
+                    ]
+                },
+                {
+                    "method": "POST",
+                    "summary": "Modify a user",
+                    "notes": "Modifies the user attributes. If authenticated user is not sysadmin, the external and sysadmin flags cannot be set.",
+                    "nickname": "ModifyUser",
+                    "parameters": [
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "name": "body",
+                            "description": "User object that needs to be modified.",
+                            "required": true,
+                            "type": "UserModified",
+                            "paramType": "body",
+                            "allowMultiple": false
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Validation failed"
+
+                        },
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete a user",
+                    "notes": "Deletes an existing user.",
+                    "nickname": "DeleteUser",
+                    "parameters": [
+                        {
+                            "name": "userIdentifier",
+                            "description": "User identifier",
+                            "required": true,
+                            "type": "string",
+                            "paramType": "path",
+                            "allowMultiple": false
+                        },
+                        {
+                            "access_token": "authentication token",
+                            "description": "user token access provided by authentication request",
+                            "paramType": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "type": "string"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Unauthorized"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "User": {
+            "_id": "User",
+            "required": [
+                "name",
+                "email"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "external": {
+                    "type": "boolean"
+                },
+                "sysadmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "UserAdded": {
+            "_id": "User",
+            "required": [
+                "name",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "external": {
+                    "type": "boolean"
+                },
+                "sysadmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "UserAdded": {
+            "_id": "User",
+            "required": [
+                "name",
+                "email"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "external": {
+                    "type": "boolean"
+                },
+                "sysadmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "UserList": {
+            "id": "UserList",
+            "required": [
+                "_id",
+                "name",
+                "platform",
+                "is_public",
+                "apikey"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "displayname": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string",
+                    "enum": [
+                        "IOS",
+                        "ANDROID",
+                        "WP"
+                    ]
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "apikey": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
