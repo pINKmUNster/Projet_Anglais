@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "express": "^4.0.0",
-    "body-parser": "~1.0.0",
-    "swagger-node-express": "~2.0"
+      "body-parser": "~1.0.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -18,5 +17,3 @@
   "contributors": ["Thierry Balandier"],
   "license": "MIT"
 }
-
-

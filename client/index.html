@@ -12,7 +12,6 @@
     <h3>ERROR</h3>
 </script>
 
-<!-- script de la page de jeu-->
 <script type="text/ng-template" id="clement.html">
     <div ng-controller="MainCtrl">
         <div class="cadreCentre">
@@ -49,7 +48,7 @@
     </div>
 </script>
 
-<!-- script de la page d'admin-->
+
 <script type="text/ng-template" id="manage.html">
     <h2>Liste des phrases</h2>
     <div ng-controller="manageCtrl">
@@ -89,35 +88,15 @@
     Loading...
 </div>
 
-<!--chargement des scripts-->
+
 <script src="vendors/jquery-1.11.0.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 <!--imports locaux du projet-->
-<script src="js/app.js" async></script>
-<script src="js/directives/directive.js" async></script>
-<script src="js/controllers/mainCtrl.js" async></script>
-<script src="js/modernizr.js"></script>
-<script src="js/functions.js" type="text/javascript"></script>
-<script type="text/javascript">
-//TODO : fonction ok mais la page n'existe pas au lancement
-
-
-//if browser doesn't support draggable attribute
-    if(window.FileReader && Modernizr.draganddrop)
-    {
-        alert("Your browser supports drag and drop!!");
-        var list2 = document.getElementsByClassName("column");
-        var list3 = document.getElementsByClassName("column2");
-        changeDiv2A('column2');
-        changeDiv2A('column');
-    }
-    else
-    {
-        alert("We're operating changes in the html");
-    }
-</script>
+<script src="js/app.js"></script>
+<script src="js/directives/directive.js"></script>
+<script src="js/controllers/mainCtrl.js"></script>
 
 
 </body>
