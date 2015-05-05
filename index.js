@@ -7,8 +7,10 @@ var express = require('express')
 
 app.set('port', (process.env.PORT || 5001))
 
-app.post('/json', function (req, res) {
-    req.on('data', function (chunk) {
+app.post('/json', function (req, res)
+{
+    req.on('data', function (chunk)
+    {
         fs.writeFile(rootPath + "/client/phrases.json", chunk, function (err) {
             if (err) {
                 console.log(err);
@@ -18,7 +20,8 @@ app.post('/json', function (req, res) {
         });
 
     });
-    req.on('end', function () {
+    req.on('end', function ()
+    {
         res.writeHead(200, "OK", {'Content-Type': 'text/html'});
         res.end();
     });

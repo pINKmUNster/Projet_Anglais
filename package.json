@@ -13,7 +13,7 @@
   "engines": {
     "node": "0.10.x"
   },
-  "author": "Sandrine Lafrogne",
-  "contributors": ["Thierry Balandier"],
+  "author": "Anthony Fioravanti",
+  "contributors": ["Florian Sieradzki"],
   "license": "MIT"
 }

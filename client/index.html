@@ -8,6 +8,7 @@
 </head>
 
 <body ng-app="clement">
+
 <script type="text/ng-template" id="error.html">
     <h3>ERROR</h3>
 </script>
@@ -48,6 +49,15 @@
     </div>
 </script>
 
+<script type="text/ng-template" id="home.html">
+<div ng-controller="homeController">
+
+        <button go-click='/words'>Vocabulary exercice</button>
+        <br>
+        <button go-click='/cv'>Fill a resume</button>
+</div>
+
+</script>
 
 <script type="text/ng-template" id="manage.html">
     <h2>Liste des phrases</h2>
@@ -83,6 +93,9 @@
 
 </script>
 
+<script type="text/ng-template" id="words.html" >
+   <h1>Bonjour et bienvenue sur cet exercice de style de la mort</h1>
+</script>
 
 <div ng-view>
     Loading...
@@ -93,10 +106,12 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+
 <!--imports locaux du projet-->
 <script src="js/app.js"></script>
 <script src="js/directives/directive.js"></script>
 <script src="js/controllers/mainCtrl.js"></script>
+<script src="js/controllers/homeController.js"></script>
 
 
 </body>
