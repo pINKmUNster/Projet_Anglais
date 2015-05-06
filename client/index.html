@@ -23,6 +23,9 @@
                     <li> <a href="/#/cv">Resume</a></li>
                     <li> <a href="/#/words">Words Game</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/#/about">About</a></li>
+                </ul>
             </div>
 
         </div>
@@ -40,15 +43,46 @@
 <script type="text/ng-template" id="cv.html">
     <div class="container" ng-controller="CvCtrl">
         <div class="jumbotron" >
-            <h2>Fill the blank in the Resume</h2>
+            <h2>Fill the blank in the Resume</h2> <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                Rules
+            </button>
             <div class="container">
 
             </div>
         </div>
         <div class="jumbotron" >
-            <h2>Dragable word :</h2>
+            <h2>Dragable word : </h2>
+            <div ng-repeat="d in columns2" class="column2" drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
+                <div ng-if="good(d, $index)" class="columnok">
+                    {{d.title}}
+                </div>
+                <div ng-if="!good(d, $index)">
+                    {{d.title}}
+                </div>
+            </div>
         </div>
     </div>
+    <!-- Modal for the rules -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Rules</h4>
+                </div>
+                <div class="modal-body">
+                    Here the rules !
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </script>
 
 <script type="text/ng-template" id="home.html">
