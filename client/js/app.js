@@ -5,6 +5,7 @@ angular.module('clement', ['ngRoute', 'controllers', 'services', 'directives', '
             .when('/manage', {templateUrl: 'manage.html'})
             .when('/error', {templateUrl: 'error.html'})
             .when('/words', {controller: 'wordsController', templateUrl: 'words.html'})
+            .when('/cv',{templateUrl:'cv.html'})
             .otherwise({
                 redirectTo: '/error'
             });
