@@ -9,11 +9,13 @@ angular.module('controllers', [])
         $scope.numeroPhrase=-1;
         $scope.numeroNouvellePhrase=-1
 
-        $http({method: 'GET', url: 'phrases.json'})
+        $http({method: 'GET', url: 'cv.json'})
             .success(function (data) {
                 $scope.posts = data;
                 $scope.initialisation();
             });
+
+
 
         $scope.initialisation = function () {
             $scope.init = [];
