@@ -1,7 +1,7 @@
 {
   "name": "iLearn",
   "version": "1.0.0",
-  "description": "jeu de mots",
+  "description": "iLearn",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
