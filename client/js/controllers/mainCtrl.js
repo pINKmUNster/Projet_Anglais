@@ -1,6 +1,6 @@
 /* Contrôleur principal
  ================================================== */
-angular.module('controllers', [])
+angular.module('controllers')
     .controller("MainCtrl", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
         $scope.init = [];
         $scope.columns = [];

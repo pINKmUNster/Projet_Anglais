@@ -2,12 +2,12 @@
 angular.module('clement', ['ngRoute', 'controllers', 'services', 'directives', 'filters'])
     .config(function ($routeProvider,$httpProvider) {
         $routeProvider.when('/', {controller:'homeController',templateUrl: 'home.html'})
-            .when('/clement', {templateUrl:'clement.html'})
-            .when('/manage', {templateUrl: 'manage.html'})
-            .when('/error', {templateUrl: 'error.html'})
+            .when('/manage', {controller:'manageCtrl',templateUrl: 'manage.html'})
             .when('/words', {controller:'wordsController',templateUrl: 'words.html'})
-            .when('/cv',{templateUrl:'cv.html'})
-            .when('/clem',{templateUrl:'clement.html'})
+            .when('/cv',{controller:'CvCtrl',templateUrl:'cv.html'})
+            .when('/clem',{controller:'MainCtrl',templateUrl:'clement.html'})
+            .when('/error',{templateUrl:'error.html'})
+
             .otherwise({
                 redirectTo: '/error'
             });

@@ -2,7 +2,7 @@
  * Created by Anthony on 05/05/2015.
  */
 
-angular.module('controllers', [])
+angular.module('controllers')
     .controller("wordsController", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http)
     {
 
