@@ -1,11 +1,11 @@
-[  [{"id":1,"title":"Your name in large letter","caption":""},
-    {"id":2,"title":"Contact details","caption":""},
-    {"id":3,"title":"Personal Statement","caption":""},
-    {"id":4,"title":"Education/Academic qualifications","caption":""},
-    {"id":5,"title":"Work experience","caption":""},
-    {"id":6,"title":"Activites and Interests","caption":""},
-    {"id":7,"title":"Additional Skills","caption":""},
-    {"id":8,"title":"References","caption":""}
+[  [{"id":1,"title":"Your name in large letter","caption":"The place where you write your First Name and you Family Name"},
+    {"id":2,"title":"Contact details","caption":"Here, you must right your mail , phone number, snail mail,..."},
+    {"id":3,"title":"Personal Statement","caption":"3"},
+    {"id":4,"title":"Education/Academic qualifications","caption":"4"},
+    {"id":5,"title":"Work experience","caption":"5"},
+    {"id":6,"title":"Activites and Interests","caption":"6"},
+    {"id":7,"title":"Additional Skills","caption":"7"},
+    {"id":8,"title":"References","caption":"8"}
   ]]
 
 

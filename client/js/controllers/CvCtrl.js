@@ -23,14 +23,17 @@ angular.module('controllers', [])
             $scope.columns2 = [];
 
             //choix de la phrase, différente de la précédente
-            while($scope.numeroPhrase == $scope.numeroNouvellePhrase ) {
+            while($scope.numeroPhrase == $scope.numeroNouvellePhrase )
+            {
                 $scope.numeroNouvellePhrase = Math.floor((Math.random() * $scope.posts.length));
             }
             $scope.numeroPhrase=$scope.numeroNouvellePhrase;
             $scope.init = $scope.posts[$scope.numeroPhrase]
+
            //mélange des mots de la phrase
             var ordre = [];
-            while (ordre.length < $scope.init.length) {
+            while (ordre.length < $scope.init.length)
+            {
                 j = Math.floor((Math.random() * $scope.init.length));
                 push = 'true'
                 for (i = 0; i < ordre.length; i++) {
@@ -42,7 +45,8 @@ angular.module('controllers', [])
                     ordre.push(j);
                 }
             }
-            for (i = 0; i < ordre.length; i++) {
+            for (i = 0; i < ordre.length; i++)
+            {
                 $scope.columns.push($scope.init[ordre[i]])
                 $scope.columns2.push({title: i + 1 })
             }
@@ -126,52 +130,15 @@ angular.module('controllers', [])
             return retour
         }
 
+        $scope.verification = function()
+        {
+            for(i = 0 ; i<$scope.columns.length;i++)
+            {
 
-    }])
 
-    .controller("manageCtrl", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
-        $scope.posts = [];
-        $scope.newPhrase = []
-        for (i = 0; i < 15; i++) {
-            $scope.newPhrase.push({id: i + 1, title: ''  }).json
-        }
-        $http({method: 'GET', url: 'phrases.json'})
-            .success(function (data) {
-                $scope.posts = data;
-            });
-
-        $scope.addPhrase = function () {
-            var newPhraseLight = []
-            for (i = 0; i < $scope.newPhrase.length; i++) {
-                if ($scope.newPhrase[i].title != '' && $scope.newPhrase[i].title != null) {
-                    newPhraseLight.push($scope.newPhrase[i])
-                }
             }
-            $scope.posts.push(newPhraseLight)
-            save();
-
         }
 
-        $scope.deletePhrase = function (index) {
-            $scope.posts.splice(index, 1)
-            save();
-        }
 
-        save = function () {
-            $http({
-                method: 'POST',
-                url: 'json',         //this is the json file with all the information I use
-                data: $scope.posts    //this contains the modified data
-            }).success(function (response) {
-                //réinitialisation du formulaire
-                $scope.newPhrase = []
-                for (i = 0; i < 15; i++) {
-                    $scope.newPhrase.push({id: i + 1, title: ''  }).json
-                }
-                //console.log('success')
-            }).error(function (response) {
-                //addLog("Error message.");
-                //console.log('error')
-            })
-        }
     }])
+

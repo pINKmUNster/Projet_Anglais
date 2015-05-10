@@ -42,49 +42,23 @@
 
 <script type="text/ng-template" id="cv.html">
     <div class="container" ng-controller="CvCtrl">
-        <div class="jumbotron" >
-            <h2>Fill the blank in the Resume</h2> <!-- Button trigger modal -->
+
+        <div class="jumbotron">
             <button type="button" class="btn btn-primary btn-lg  pull-right " data-toggle="modal" data-target="#myModal">
                 Rules
             </button>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 alert alert-warning " drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Your name in large letters</div>
+            <h2>Re-Order the CV: </h2>
+
+            <div ng-repeat="d in columns" class=""  drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop" >
+                <div ng-if="good(d, $index)" class=" alert alert-success " >
+                    {{d.title}} <a title="" data-toggle="tooltip" href="#" data-original-title="Hello Buddy">What? </a>
                 </div>
-                <div class="row ">
-                    <div class=".col-md-4 alert alert-warning " drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Contact Details</div>
-                </div>
-                <div class="row">
-                    <div class=".col-md-6 .col-md-offset-3  alert alert-warning  " drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Personal Statement</div>
-                </div>
-                <div class="row ">
-                    <div class=".col-md-6 .col-md-offset-3  alert alert-warning" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Education/Academic qualifications</div>
-                </div>
-                <div class="row ">
-                    <div class=".col-md-6 .col-md-offset-3  alert alert-warning" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Work Experience</div>
-                </div>
-                <div class="row ">
-                    <div class=".col-md-6 .col-md-offset-3  alert alert-warning" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Activities & Interests</div>
-                </div>
-                <div class="row ">
-                    <div class=".col-md-6 .col-md-offset-3  alert alert-warning" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Additionnal Skills</div>
-                </div>
-                <div class="row ">
-                    <div class=".col-md-4 .col-md-offset-3  alert alert-warning" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">Reference</div>
+                <div ng-if="!good(d, $index)" class="alert alert-warning ">
+                    {{d.title}}  <a title="{{d.caption}}" data-toggle="tooltip" data-placement="right"  data-original-title="Hello Buddy">What? </a>
                 </div>
 
             </div>
-        </div>
-        <div class="jumbotron" style="overflow:scroll; height:400px;">
-            <h2>Dragable word : </h2>
-            <div ng-repeat="d in columns2" class="alert alert-warning columns2"  drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
-                <div ng-if="good(d, $index)" class="columnok">
-                    {{d.title}}
-                </div>
-                <div ng-if="!good(d, $index)">
-                    {{d.title}}
-                </div>
-            </div>
+            <button class="btn btn-primary pull-right" ng-click="verification()">Test</button>
         </div>
     </div>
     <!-- Modal for the rules -->
@@ -205,9 +179,8 @@
 </footer>
 
 
-
-<script src="vendors/jquery-1.11.0.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 <!--imports locaux du projet-->
