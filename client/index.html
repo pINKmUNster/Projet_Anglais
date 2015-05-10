@@ -158,33 +158,31 @@
     <div class="container">
         <div class="jumbotron">
                 <div ng-repeat="sentence in posts" class="alert alert-warning">
-                    <div ng-repeat="word in sentence.phrase.content" drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
+                    <div ng-repeat="c in sentence.content" drag="c" dragStyle="columnDrag" drop="c" dropStyle="columnDrop">
                         <div class="word  col-md-1" >
-                            {{word.text}}
+                            {{c.text}}
                         </div>
                     </div>
                 </div>
 
         </div>
-
-        <div     class="jumbotron">
-                <div ng-repeat="sentence in posts" class="word">
-                    <div ng-repeat="word in sentence.phrase.missing">
-                        <div  class="col-md-1 col-md-offset-1    alert alert-success " drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
-                            {{word.text}}
+        <div class="jumbotron">
+                <div ng-repeat="d in posts2" class="word"  drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
+                        <div  class="col-md-1 col-md-offset-1    alert alert-success">
+                            {{d.text}}
                         </div>
 
                     </div>
-
-                </div>
+        </div>
             <br>
-        </div>
     </div>
+
+
+
 </script>
 
  <script type="text/ng-template" id="research.html">
      <div class="container" ng-controller="ReCtrl">
-
          <div class="jumbotron">
              <button type="button" class="btn btn-primary btn-lg  pull-right " data-toggle="modal" data-target="#myModal">
                  Instructions
@@ -256,7 +254,7 @@
                      <h4 class="modal-title" id="myModalLabel">Instructions</h4>
                  </div>
                  <div class="modal-body">
-                    Find the order of the step to apply for a job  by drag'n'drop the sentence.
+                     Find the order of the step to apply for a job  by drag'n'drop the sentence.
                      When the sentence is in the correct position, the background will be colored in green.
                  </div>
                  <div class="modal-footer">
@@ -271,6 +269,29 @@
 
 
  </script>
+<script type="text/ng-template" id="toeic.html">
+
+<div>
+    <div>
+        {{posts.exo.phrase}}
+
+    </div>
+<form>
+    <div ng-repeat="solution in posts.solutions">
+        <input type="radio"  name="radio" ng-model="sol" ng-value="solution.valid">
+        {{solution.phrase}}test
+        <br>
+    </div>
+    <tt>sol = {{sol}}</tt>
+    <input type="submit" ng-click="validate()" value="Validate">
+</form>
+
+</div>
+
+</script>
+
+
+
 
 
 <script type="text/ng-template" id="clement.html">
@@ -365,6 +386,9 @@
      <script src="js/controllers/mainCtrl.js"></script>
      <script src="js/controllers/wordsController.js"></script>
      <script src="js/controllers/CvCtrl.js"></script>
+     <script src="js/controllers/toeicController.js"></script>
+
+
      <script src="js/controllers/ReCtrl.js"></script>
 
 

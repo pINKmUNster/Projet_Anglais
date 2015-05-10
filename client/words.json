@@ -1,58 +1,53 @@
 [
   {
-    "phrase":
-    {
-      "_id": "xx",
-      "content":
-      [
-        {
-          "text": "Hello",
-          "position": "1"
-        },
-        {
-          "text": "...",
-          "position": "2"
-        },
-        {
-          "text": "Test",
-          "position": "3"
-        }
-      ],
-      "missing":
-      [
-        {
-          "text":"How",
-          "position":"2"
-        }
-      ]
-    }
+    "phrase": [
+      {
+        "_id": "xx",
+        "content": [
+          {
+            "text": "Hello",
+            "position": "1"
+          },
+          {
+            "text": "...",
+            "position": "2"
+          },
+          {
+            "text": "Test",
+            "position": "3"
+          }
+        ]
+      },
+      {
+        "_id": "xy",
+        "content": [
+          {
+            "text": "Hello2",
+            "position": "1"
+          },
+          {
+            "text": "...",
+            "position": "2"
+          },
+          {
+            "text": "Test2",
+            "position": "3"
+          }
+        ]
+      }
+    ]
   },
   {
-    "phrase":
-    {
-      "_id": "xy",
-      "content":
-      [
-        {
-          "text": "Hello",
-          "position": "1"
-        },
-        {
-          "text": "...",
-          "position": "2"
-        },
-        {
-          "text": "Test",
-          "position": "3"
-        }
-      ],
-      "missing":
-      [
-        {
-          "text":"What",
-          "position":"2"
-        }
-      ]
-    }
+    "missing":
+    [
+      {
+        "text": "yaaaa",
+        "reference": "xx"
+      },
+      {
+        "text": "yo",
+        "reference": "xy"
+      }
+    ]
   }
 ]

@@ -1,0 +1,44 @@
+[
+  {
+    "exo":
+    {
+      "phrase":"blablablalblalba"
+    },
+    "solutions":
+    [
+      {
+        "phrase":"ok",
+        "valid":"true"
+      },
+      {
+        "phrase":"ok2",
+        "valid":"false"
+      },
+      {
+        "phrase":"ok3",
+        "valid":"false"
+      }
+    ]
+  },
+  {
+    "exo":
+    {
+      "phrase":"Yo my nega"
+    },
+    "solutions":
+    [
+      {
+        "phrase":"ok",
+        "valid":"true"
+      },
+      {
+        "phrase":"ok2",
+        "valid":"false"
+      },
+      {
+        "phrase":"ok3",
+        "valid":"false"
+      }
+    ]
+  }
+]
