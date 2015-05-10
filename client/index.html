@@ -19,7 +19,9 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li> <a href="/#/cv">Resume</a></li>
-                    <li> <a href="/#/words">Words Game</a></li>
+                   <!-- <li> <a href="/#/words">Words Game</a></li>-->
+                    <li> <a href="/#/research">Job application process</a></li>
+                    <li><a href="/#/toeic" >Toeic</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/#/about">About</a></li>
@@ -43,20 +45,70 @@
 
         <div class="jumbotron">
             <button type="button" class="btn btn-primary btn-lg  pull-right " data-toggle="modal" data-target="#myModal">
-                Rules
+                Instructions
             </button>
-            <h2>Re-Order the CV: </h2>
+            <h2>Re-Order the CV</h2>
 
             <div ng-repeat="d in columns" class=""  drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop" >
-                <div ng-if="good(d, $index)" class=" alert alert-success " >
-                    {{d.title}} <a title="" data-toggle="tooltip" href="#" data-original-title="Hello Buddy">What? </a>
+                <div ng-if="good(d, $index)" class="container" >
+                   <div class=" alert alert-success ">
+                    {{d.title}} <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#{{d.id}}">What?</button>
+                    </div>
+
+
+                    <div class="modal fade bs-example-modal-sm"  id="{{d.id}}"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="{{d.id}}Label">Explanation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{d.caption}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-                <div ng-if="!good(d, $index)" class="alert alert-warning ">
-                    {{d.title}}  <a title="{{d.caption}}" data-toggle="tooltip" data-placement="right"  data-original-title="Hello Buddy">What? </a>
+                <div ng-if="!good(d, $index)" class="container ">
+                    <div class=" alert alert-warning">
+                        {{d.title}} <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#{{d.id}}">What?</button>
+                    </div>
+
+
+                    <div class="modal fade bs-example-modal-sm"  id="{{d.id}}"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="{{d.id}}Label">Explanation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{d.caption}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-            <button class="btn btn-primary pull-right" ng-click="verification()">Test</button>
+
+
+
+
+
+
+
         </div>
     </div>
     <!-- Modal for the rules -->
@@ -65,10 +117,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Rules</h4>
+                    <h4 class="modal-title" id="myModalLabel">Instructions</h4>
                 </div>
                 <div class="modal-body">
-                    Here the rules !
+                    Re-order the main structure of the Resume by drag'n'drop the sentence.
+                    When the sentence is in the correct position, the background will be colored in green.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -79,16 +132,23 @@
     </div>
 
 
+
+
+
 </script>
 
 <script type="text/ng-template" id="home.html">
     <div class="container">
         <div class="jumbotron">
             <h1>Welcome on iLearn </h1>
-            <h3>Which game do you want to play?</h3>
-            <p><a href="/#/words" class="btn  btn-primary" role="button">Vocabulary exercice</a></p>
-            <br>
+            <h3>What exercise do you want to do ? </h3>
+           <!--<p><a href="/#/words" class="btn  btn-primary" role="button">Vocabulary exercice</a></p>
+            <br>-->
             <p><a href="/#/cv" class="btn btn-primary" role="button">Fill a resume</a></p>
+            <br>
+            <p><a href="/#/research" class="btn btn-primary" role="button" >Job application process</a></p>
+            <br>
+            <p><a href="/#/toeic" class="btn btn-primary" role="button" >Toeic</a></p>
         </div>
     </div>
 </script>
@@ -121,6 +181,96 @@
         </div>
     </div>
 </script>
+
+ <script type="text/ng-template" id="research.html">
+     <div class="container" ng-controller="ReCtrl">
+
+         <div class="jumbotron">
+             <button type="button" class="btn btn-primary btn-lg  pull-right " data-toggle="modal" data-target="#myModal">
+                 Instructions
+             </button>
+             <h2>Order the step to apply for a job  </h2>
+
+             <div ng-repeat="d in columns" class=""  drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop" >
+                 <div ng-if="good(d, $index)" class="container" >
+                     <div class=" alert alert-success ">
+                         {{d.title}} <button type="button" class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#{{d.id}}">What?</button>
+                     </div>
+
+
+                     <div class="modal fade bs-example-modal-sm"  id="{{d.id}}"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                     <h4 class="modal-title" id="{{d.id}}Label">Explanation</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                     {{d.caption}}
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+
+                 </div>
+                 <div ng-if="!good(d, $index)" class="container ">
+                     <div class=" alert alert-warning">
+                         {{d.title}} <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#{{d.id}}">What?</button>
+                     </div>
+
+
+                     <div class="modal fade bs-example-modal-sm"  id="{{d.id}}"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                     <h4 class="modal-title" id="{{d.id}}Label">Explanation</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                     {{d.caption}}
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+
+         </div>
+     </div>
+     <!-- Modal for the rules -->
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">Instructions</h4>
+                 </div>
+                 <div class="modal-body">
+                    Find the order of the step to apply for a job  by drag'n'drop the sentence.
+                     When the sentence is in the correct position, the background will be colored in green.
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                 </div>
+             </div>
+         </div>
+     </div>
+
+
+
+
+ </script>
 
 
 <script type="text/ng-template" id="clement.html">
@@ -215,7 +365,7 @@
      <script src="js/controllers/mainCtrl.js"></script>
      <script src="js/controllers/wordsController.js"></script>
      <script src="js/controllers/CvCtrl.js"></script>
-
+     <script src="js/controllers/ReCtrl.js"></script>
 
 
 

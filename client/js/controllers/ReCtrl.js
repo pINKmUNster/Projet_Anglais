@@ -1,7 +1,7 @@
 /* Contrôleur principal
  ================================================== */
 angular.module('controllers')
-    .controller("CvCtrl", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+    .controller("ReCtrl", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
         $scope.init = [];
         $scope.columns = [];
         $scope.columns2 = [];
@@ -9,7 +9,7 @@ angular.module('controllers')
         $scope.numeroPhrase=-1;
         $scope.numeroNouvellePhrase=-1
 
-        $http({method: 'GET', url: 'cv.json'})
+        $http({method: 'GET', url: 'research.json'})
             .success(function (data) {
                 $scope.posts = data;
                 $scope.initialisation();
@@ -50,8 +50,6 @@ angular.module('controllers')
                 $scope.columns.push($scope.init[ordre[i]])
                 $scope.columns2.push({title: i + 1 })
             }
-
-
         }
 
         $rootScope.$on('dropEvent', function (evt, dragged, dropped) {
@@ -155,6 +153,4 @@ angular.module('controllers')
                 }
             }}
     });
-
-
 

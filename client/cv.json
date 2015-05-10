@@ -1,11 +1,11 @@
-[  [{"id":1,"title":"Your name in large letter","caption":"The place where you write your First Name and you Family Name"},
+[  [{"id":1,"title":"Your name in large letter","caption":"The place where you write your First Name and you Family Name in large letter."},
     {"id":2,"title":"Contact details","caption":"Here, you must right your mail , phone number, snail mail,..."},
-    {"id":3,"title":"Personal Statement","caption":"3"},
-    {"id":4,"title":"Education/Academic qualifications","caption":"4"},
-    {"id":5,"title":"Work experience","caption":"5"},
-    {"id":6,"title":"Activites and Interests","caption":"6"},
-    {"id":7,"title":"Additional Skills","caption":"7"},
-    {"id":8,"title":"References","caption":"8"}
+    {"id":3,"title":"Personal Statement","caption":" A personal statement is a brief statement of the type of person you are, your skills and your achievements."},
+    {"id":4,"title":"Education/Academic qualifications","caption":"Here, explain what you do during your education"},
+    {"id":5,"title":"Work experience","caption":"Here, explain what you do during yours previous jobs(projects, skills , ...)."},
+    {"id":6,"title":"Activites and Interests","caption":"Things you like doing during your free time, theses say a lot about you."},
+    {"id":7,"title":"Additional Skills","caption":"Things like : Full current driving licence, Full command of MS Office, other languages( Italien Fluent,...)"},
+    {"id":8,"title":"References","caption":"References provide further evidence to potential future employers that you are. It is highly likely that your referees will be contacted if you are shortlisted, so it is essential to elect them carefully."}
   ]]
 
 
