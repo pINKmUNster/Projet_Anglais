@@ -1,56 +1,44 @@
 [
   {
-    "phrase":
-    {
+    "phrase": {
       "_id": "xx",
-      "content":
-      [
+      "content": [
         {
           "text": "Hello",
-          "position": "1"
+          "position": "1",
+          "missing": "false"
         },
         {
-          "text": "...",
-          "position": "2"
+          "text": "How",
+          "position": "2",
+          "missing": "true"
         },
         {
           "text": "Test",
-          "position": "3"
-        }
-      ],
-      "missing":
-      [
-        {
-          "text":"How",
-          "position":"2"
+          "position": "3",
+          "missing": "false"
         }
       ]
     }
   },
   {
-    "phrase":
-    {
+    "phrase": {
       "_id": "xy",
-      "content":
-      [
+      "content": [
         {
           "text": "Hello",
-          "position": "1"
+          "position": "1",
+          "missing": "false"
         },
         {
-          "text": "...",
-          "position": "2"
+          "text": "What",
+          "position": "2",
+          "missing": "true"
         },
         {
           "text": "Test",
-          "position": "3"
-        }
-      ],
-      "missing":
-      [
-        {
-          "text":"What",
-          "position":"2"
+          "position": "3",
+          "missing": "false"
         }
       ]
     }

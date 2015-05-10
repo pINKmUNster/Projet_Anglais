@@ -1,11 +1,10 @@
 //TODO : changer le nom du module, même valeur que dans index.html
 angular.module('clement', ['ngRoute', 'controllers', 'services', 'directives', 'filters'])
     .config(function ($routeProvider,$httpProvider) {
-        $routeProvider.when('/', {controller:'homeController',templateUrl: 'home.html'})
-            .when('/clement', {templateUrl:'clement.html'})
+        $routeProvider.when('/', {templateUrl: 'home.html'})
             .when('/manage', {templateUrl: 'manage.html'})
             .when('/error', {templateUrl: 'error.html'})
-            .when('/words', {controller:'wordsController',templateUrl: 'words.html'})
+            .when('/words', {controller: 'wordsController', templateUrl: 'words.html'})
             .when('/cv',{templateUrl:'cv.html'})
             .when('/clem',{templateUrl:'clement.html'})
             .otherwise({

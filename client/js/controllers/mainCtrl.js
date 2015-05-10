@@ -126,6 +126,7 @@ angular.module('controllers', [])
 
 
     }])
+
     .controller("manageCtrl", ['$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
         $scope.posts = [];
         $scope.newPhrase = []
@@ -172,4 +173,3 @@ angular.module('controllers', [])
             })
         }
     }])
-
