@@ -20,18 +20,19 @@ angular.module('controllers')
         //picking up different sentence
         $scope.initialisation = function ()
         {
+            $scope.caption = false;
             var tmp = shuffle($scope.exercices);
             var size = $scope.exercices.length -1
             $scope.posts = tmp[Math.floor((Math.random() * size) + 0)]
-            console.log($scope.posts)
+            //console.log($scope.posts)
 
         }
 
 
         $scope.validate = function ()
         {
-            console.log("on teste : ", $scope.sol)
-
+            //console.log("on teste : ", $scope.sol)
+            $scope.caption = true;
             if ($scope.sol == 'true')
                 console.log("Gagné")
                 return true;

@@ -18,7 +18,8 @@
         "phrase":"ok3",
         "valid":"false"
       }
-    ]
+    ],
+    "caption":"ici c'est la règle"
   },
   {
     "exo":
@@ -39,6 +40,7 @@
         "phrase":"ok3",
         "valid":"false"
       }
-    ]
+    ],
+    "caption":"ici c'est la règle 2 "
   }
 ]
