@@ -94,7 +94,7 @@
 </script>
 
 <script type="text/ng-template" id="words.html" >
-    
+
     <div class="container">
         <div class="jumbotron">
                 <div ng-repeat="sentence in posts" class="alert alert-warning">
@@ -107,14 +107,17 @@
 
         </div>
 
-        <div class="jumbotron">
+        <div     class="jumbotron">
                 <div ng-repeat="sentence in posts" class="word">
                     <div ng-repeat="word in sentence.phrase.missing">
-                        <div  class="col-md-1 alert alert-success " drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
+                        <div  class="col-md-1 col-md-offset-1    alert alert-success " drag="d" dragStyle="columnDrag" drop="d" dropStyle="columnDrop">
                             {{word.text}}
                         </div>
+
                     </div>
+
                 </div>
+            <br>
         </div>
     </div>
 </script>
