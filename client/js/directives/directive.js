@@ -63,6 +63,8 @@ angular.module('directives', [])
             }
         }
     }])
+
+
    /* .directive('dragEvent', ['$parse', function($parse) {
         return function(scope, element, attrs) {
             element.bind("dragstart", function (evt) {

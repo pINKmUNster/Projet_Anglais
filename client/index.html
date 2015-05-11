@@ -5,7 +5,6 @@
     <title>iLearn</title>
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
-    <link rel="alternate stylesheet" href="css/nectarine.css" >
     <style>
         body {
             background-image: url("fonts/British_cupcake_modify.jpg");
@@ -57,6 +56,19 @@
     <div class="container">
         <div class="col-xs-6 col-md-offset-3">
             <div class="alert alert-danger" role="alert">Oops Something went wrong ! <strong>Go</strong> <a href="/#/">Home</a>, you are <strong>drunk</strong> !</div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="about.html">
+    <div class="container">
+        <div class="jumbotron">
+            <h2> Web application designed by Anthony Fioravanti and Florian Sieradzki.<br>
+                <br><br>
+
+                <strong><a href="http://www.telecomnancy.eu/" target="_blank"> Telecom Nancy</a> </strong> English 2A Project
+            </h2>
         </div>
     </div>
 </script>
@@ -163,13 +175,13 @@
         <div class="jumbotron">
             <h1>Welcome on iLearn </h1>
             <h3>What exercise do you want to do ? </h3>
-            <!--<p><a href="/#/words" class="btn  btn-primary" role="button">Vocabulary exercice</a></p>
-             <br>-->
-            <p><a href="/#/cv" class="btn btn-primary btn-lg" role="button">Fill a resume</a></p>
+            <!--<p><a href="/#/words" class="btn  btn-primary" role="button">Vocabulary exercice</a></p>-->
+            <br>
+            <a href="/#/cv" class="btn btn-primary btn-lg" role="button">Fill a resume</a> &nbsp;
 
-            <p><a href="/#/research" class="btn btn-primary btn-lg" role="button" >Job application process</a></p>
+            <a href="/#/research" class="btn btn-primary btn-lg" role="button" >Job application process</a>&nbsp;
 
-            <p><a href="/#/toeic" class="btn btn-primary btn-lg" role="button" >Toeic</a></p>
+            <a href="/#/toeic" class="btn btn-primary btn-lg" role="button" >Toeic</a>
         </div>
     </div>
 </script>
@@ -296,8 +308,11 @@
         <div class="jumbotron">
             <h2>{{posts.exo.phrase}}</h2>
             <div ng-show="caption == true" name="caption" class="center-block">
-                <button type="button" class="btn btn-success btn-lg  center" data-toggle="modal" data-target="#Modal">Rule</button>
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#Modal">Rule</button>
+                <button class="btn btn-lg btn-danger" ng-click="initialisation()">Retry</button>
             </div>
+
+
         </div>
         <div class="jumbotron">
             <form ng-submit="validate()">
@@ -306,7 +321,7 @@
                     {{solution.phrase}}test
                     <br>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">Validate</button>
+                <button type="submit" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#Modal2">Validate</button>
             </form>
         </div>
 
@@ -315,10 +330,28 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Instructions</h4>
+                        <h4 class="modal-title" id="myModalLabel">Instruction</h4>
                     </div>
                     <div class="modal-body">
                         {{posts.caption}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Instruction</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{message}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -410,8 +443,9 @@
 
 <footer   class="footer " >
     <nav class="nav navbar-inverse ">
-        <div   class="container">
-            Designed by <a>Anthony Fioravanti</a> and <a>Florian Sieradzki</a>.
+        <div class="container">
+            Designed by <a href="https://www.facebook.com/anthony.fioravanti.9?fref=ts" target="_blank">Anthony Fioravanti</a> and <a href="https://www.facebook.com/FlorianSieradzki?fref=ts" target="_blank">Florian Sieradzki</a>.
+            <div class="pull-right" >2015 all copyrigth reserved © Nancy</div>
         </div>
     </nav>
 </footer>

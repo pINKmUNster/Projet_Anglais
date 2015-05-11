@@ -8,6 +8,7 @@ angular.module('clement', ['ngRoute', 'controllers', 'services', 'directives', '
             .when('/clem',{controller:'MainCtrl',templateUrl:'clement.html'})
             .when('/research',{controller:'ReCtrl',templateUrl:'research.html'})
             .when('/toeic', {controller:'toeicController', templateUrl:'toeic.html'})
+            .when('/about',{templateUrl:'about.html'})
             .when('/error',{templateUrl:'error.html'})
 
             .otherwise({
