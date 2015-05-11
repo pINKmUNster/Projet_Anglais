@@ -317,8 +317,8 @@
         <div class="jumbotron">
             <form ng-submit="validate()">
                 <div ng-repeat="solution in posts.solutions">
-                    <input type="radio"  name="radio" ng-model="$parent.sol" value="{{solution.valid}}">
-                    {{solution.phrase}}test
+                    <h4><input type="radio"  name="radio" ng-model="$parent.sol" value="{{solution.valid}}">
+                    {{solution.phrase}}</h4>
                     <br>
                 </div>
                 <button type="submit" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#Modal2">Validate</button>

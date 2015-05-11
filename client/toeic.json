@@ -2,20 +2,24 @@
   {
     "exo":
     {
-      "phrase":"blablablalblalba"
+      "phrase":"The end of year sales seminar will be be held on ________ Satuday the 12th or Sunday the 13th"
     },
     "solutions":
     [
       {
-        "phrase":"ok",
-        "valid":"true"
-      },
-      {
-        "phrase":"ok2",
+        "phrase":"both",
         "valid":"false"
       },
       {
-        "phrase":"ok3",
+        "phrase":"either",
+        "valid":"true"
+      },
+      {
+        "phrase":"neither",
+        "valid":"false"
+      },
+      {
+        "phrase":"or",
         "valid":"false"
       }
     ],
@@ -24,20 +28,102 @@
   {
     "exo":
     {
-      "phrase":"Yo my nega"
+      "phrase":"The management of City Cable is _______ sorry for the interruption of services on Saturday."
     },
     "solutions":
     [
       {
-        "phrase":"ok",
-        "valid":"true"
-      },
-      {
-        "phrase":"ok2",
+        "phrase":"quickly",
         "valid":"false"
       },
       {
-        "phrase":"ok3",
+        "phrase":"gladly",
+        "valid":"false"
+      },
+      {
+        "phrase":"deeply",
+        "valid":"true"
+      },
+      {
+        "phrase":"lately",
+        "valid":"false"
+      }
+    ],
+    "caption":"ici c'est la règle"
+  },
+  {
+    "exo":
+    {
+      "phrase":"Mr. and Mrs. Spellborn will be joining the party late due to _____ son's school play. "
+    },
+    "solutions":
+    [
+      {
+        "phrase":"they",
+        "valid":"false"
+      },
+      {
+        "phrase":"their",
+        "valid":"true"
+      },
+      {
+        "phrase":"theirs",
+        "valid":"false"
+      },
+      {
+        "phrase":"them",
+        "valid":"false"
+      }
+    ],
+    "caption":"ici c'est la règle"
+  },
+  {
+    "exo":
+    {
+      "phrase":"The software she _________ at the trade fair last week did not come with a manual. "
+    },
+    "solutions":
+    [
+      {
+        "phrase":"purchase",
+        "valid":"false"
+      },
+      {
+        "phrase":"purchasing",
+        "valid":"false"
+      },
+      {
+        "phrase":"purchases",
+        "valid":"false"
+      },
+      {
+        "phrase":"purchased",
+        "valid":"true"
+      }
+    ],
+    "caption":"ici c'est la règle"
+  },
+  {
+    "exo":
+    {
+      "phrase":"The last ________ for the new position did very poorly on his interview. "
+    },
+    "solutions":
+    [
+      {
+        "phrase":"applying",
+        "valid":"false"
+      },
+      {
+        "phrase":"application",
+        "valid":"false"
+      },
+      {
+        "phrase":"applicant",
+        "valid":"true"
+      },
+      {
+        "phrase":"appliance",
         "valid":"false"
       }
     ],
