@@ -44,7 +44,7 @@ angular.module('controllers')
             }
             else
             {
-                $scope.message = "You're wrong, feel free to glance at rule to further information";
+                $scope.message = "You're wrong, feel free to glance at rule to have further information";
                 return false;
             }
             $scope.messageShow = true;
